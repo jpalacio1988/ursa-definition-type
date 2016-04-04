@@ -156,10 +156,10 @@ declare module 'ursa' {
    */
   export function sshFingerprint(sshKey: string | Buffer, sshEncoding: string, outEncoding: string): void;
 
-  export const RSA_NO_PADDING: number = 3;
-  export const RSA_PKCS1_PADDING: number = 1;
-  export const RSA_PKCS1_OAEP_PADDING: number = 4;
-  export const RSA_PKCS1_SALT_LEN_HLEN: number = -1;
-  export const RSA_PKCS1_SALT_LEN_MAX: number = -2;
-  export const RSA_PKCS1_SALT_LEN_RECOVER: number = -2;
+  export const RSA_NO_PADDING: number;
+  export const RSA_PKCS1_PADDING: number;
+  export const RSA_PKCS1_OAEP_PADDING: number;
+  export const RSA_PKCS1_SALT_LEN_HLEN: number;
+  export const RSA_PKCS1_SALT_LEN_MAX: number;
+  export const RSA_PKCS1_SALT_LEN_RECOVER: number;
 }
