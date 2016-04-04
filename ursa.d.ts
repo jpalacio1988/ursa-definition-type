@@ -30,6 +30,16 @@ declare module 'ursa' {
     unseal(unsealer: string[]): Buffer;
   }
 
+  interface Signer {
+    update(buf: string | Buffer, bufEncoding?: string): Signer;
+    sign(privateKey: PrivateKey, outEncoding: string): Buffer;
+  }
+
+  interface Verifier {
+    update(buf: string | Buffer, bufEncoding?: string): Verifier;
+    verify(publicKey: PublicKey, sig: string, sigEncoding?: string): Buffer;
+  }
+
   /**
    * Assert wrapper for isKey().
    */
@@ -51,7 +61,7 @@ declare module 'ursa' {
    * returns it as-is. If given a string or Buffer, it tries to parse it
    * as PEM. Anything else is an error.
    */
-  export function coerceKey(orig: any): any;
+  export function coerceKey(orig: any): PrivateKey | PublicKey;
 
   /**
    * Coerce the given key value into an private key object, returning
@@ -89,9 +99,6 @@ declare module 'ursa' {
 
   /**
    * OpenSSH Public key to RSA
-   * @param {String|Object} key OpenSSH Public Key
-   * @param <String> key encoding, default 'base64'
-   * @returns {PublicKey}
    */
   export function openSshPublicKey(key: string | Buffer, encoding?: string): PublicKey;
 
@@ -108,12 +115,12 @@ declare module 'ursa' {
   /**
    * Create a signer object.
    */
-  export function createSigner(algorithm: string): Object;
+  export function createSigner(algorithm: string): Signer;
 
   /**
    * Create a verifier object.
    */
-  export function createVerifier(algorithm: string): Object;
+  export function createVerifier(algorithm: string): Verifier;
 
   /**
    * Check whether the two objects are both keys of some sort, are
@@ -154,7 +161,7 @@ declare module 'ursa' {
    * Return the SSH-style public key fingerprint of the given SSH-format
    * public key.
    */
-  export function sshFingerprint(sshKey: string | Buffer, sshEncoding: string, outEncoding: string): void;
+  export function sshFingerprint(sshKey: string | Buffer, sshEncoding: string, outEncoding: string): Buffer;
 
   export const RSA_NO_PADDING: number;
   export const RSA_PKCS1_PADDING: number;
