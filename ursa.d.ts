@@ -6,8 +6,8 @@
 declare module 'ursa' {
 
   interface PrivateKey {
-    getPrivateExponent(encoding: string): Buffer;
     decrypt(buf: string | Buffer, bufEncoding: string, outEncoding: string, padding: number): Buffer;
+    getPrivateExponent(encoding: string): Buffer;
     hashAndSign(algorithm: string, buf: string | Buffer, bufEncoding: string, outEncoding: string,
                 use_pss_padding: boolean, salt_len: number): Buffer;
     privateEncrypt(buf: string | Buffer, bufEncoding: string, outEncoding: string, padding: number): Buffer;
@@ -17,16 +17,17 @@ declare module 'ursa' {
   }
 
   interface PublicKey {
-    encrypt(encoding: string): Buffer;
+    encrypt(buf: string | Buffer, bufEncoding: string, outEncoding: string, padding: number): Buffer;
     getExponent(encoding: string): Buffer;
     getModulus(encoding: string): Buffer;
-    hashAndVerify(encoding: string): Buffer;
-    publicDecrypt(encoding: string): Buffer;
+    hashAndVerify(algorithm: string, buf: string | Buffer, sig: string, encoding: string,
+                  use_pss_padding: boolean, salt_len: number): Buffer;
+    publicDecrypt(buf: string | Buffer, bufEncoding: string, outEncoding: string, padding: number): Buffer;
     toPublicPem(encoding: string): Buffer;
     toPublicSsh(encoding: string): Buffer;
     toPublicSshFingerprint(encoding: string): Buffer;
-    verify(encoding: string): Buffer;
-    unseal(encoding: string): Buffer;
+    verify(algorithm: string, hash: string, sig: string, encoding: string): Buffer;
+    unseal(unsealer: string[]): Buffer;
   }
 
   /**
